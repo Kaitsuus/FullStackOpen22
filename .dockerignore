@@ -1,0 +1,152 @@
+# flyctl launch added from Osa_01\anekdootit\.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Osa_01\anekdootit\node_modules
+Osa_01\anekdootit\.pnp
+Osa_01\anekdootit\**\.pnp.js
+
+# testing
+Osa_01\anekdootit\coverage
+
+# production
+Osa_01\anekdootit\build
+
+# misc
+Osa_01\anekdootit\**\.DS_Store
+Osa_01\anekdootit\**\.env.local
+Osa_01\anekdootit\**\.env.development.local
+Osa_01\anekdootit\**\.env.test.local
+Osa_01\anekdootit\**\.env.production.local
+
+Osa_01\anekdootit\**\npm-debug.log*
+Osa_01\anekdootit\**\yarn-debug.log*
+Osa_01\anekdootit\**\yarn-error.log*
+
+# flyctl launch added from Osa_01\kurssitiedot\.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Osa_01\kurssitiedot\node_modules
+Osa_01\kurssitiedot\.pnp
+Osa_01\kurssitiedot\**\.pnp.js
+
+# testing
+Osa_01\kurssitiedot\coverage
+
+# production
+Osa_01\kurssitiedot\build
+
+# misc
+Osa_01\kurssitiedot\**\.DS_Store
+Osa_01\kurssitiedot\**\.env.local
+Osa_01\kurssitiedot\**\.env.development.local
+Osa_01\kurssitiedot\**\.env.test.local
+Osa_01\kurssitiedot\**\.env.production.local
+
+Osa_01\kurssitiedot\**\npm-debug.log*
+Osa_01\kurssitiedot\**\yarn-debug.log*
+Osa_01\kurssitiedot\**\yarn-error.log*
+
+# flyctl launch added from Osa_01\unicafe\unicafe\.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Osa_01\unicafe\unicafe\node_modules
+Osa_01\unicafe\unicafe\.pnp
+Osa_01\unicafe\unicafe\**\.pnp.js
+
+# testing
+Osa_01\unicafe\unicafe\coverage
+
+# production
+Osa_01\unicafe\unicafe\build
+
+# misc
+Osa_01\unicafe\unicafe\**\.DS_Store
+Osa_01\unicafe\unicafe\**\.env.local
+Osa_01\unicafe\unicafe\**\.env.development.local
+Osa_01\unicafe\unicafe\**\.env.test.local
+Osa_01\unicafe\unicafe\**\.env.production.local
+
+Osa_01\unicafe\unicafe\**\npm-debug.log*
+Osa_01\unicafe\unicafe\**\yarn-debug.log*
+Osa_01\unicafe\unicafe\**\yarn-error.log*
+
+# flyctl launch added from Osa_02\kurssitiedot\.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Osa_02\kurssitiedot\node_modules
+Osa_02\kurssitiedot\.pnp
+Osa_02\kurssitiedot\**\.pnp.js
+
+# testing
+Osa_02\kurssitiedot\coverage
+
+# production
+Osa_02\kurssitiedot\build
+
+# misc
+Osa_02\kurssitiedot\**\.DS_Store
+Osa_02\kurssitiedot\**\.env.local
+Osa_02\kurssitiedot\**\.env.development.local
+Osa_02\kurssitiedot\**\.env.test.local
+Osa_02\kurssitiedot\**\.env.production.local
+
+Osa_02\kurssitiedot\**\npm-debug.log*
+Osa_02\kurssitiedot\**\yarn-debug.log*
+Osa_02\kurssitiedot\**\yarn-error.log*
+
+# flyctl launch added from Osa_02\maidentiedot\.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Osa_02\maidentiedot\node_modules
+Osa_02\maidentiedot\.pnp
+Osa_02\maidentiedot\**\.pnp.js
+
+# testing
+Osa_02\maidentiedot\coverage
+
+# production
+Osa_02\maidentiedot\build
+
+# misc
+Osa_02\maidentiedot\**\.DS_Store
+Osa_02\maidentiedot\**\.env.local
+Osa_02\maidentiedot\**\.env.development.local
+Osa_02\maidentiedot\**\.env.test.local
+Osa_02\maidentiedot\**\.env.production.local
+
+Osa_02\maidentiedot\**\npm-debug.log*
+Osa_02\maidentiedot\**\yarn-debug.log*
+Osa_02\maidentiedot\**\yarn-error.log*
+
+# flyctl launch added from Osa_02\puhelinluettelo\.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Osa_02\puhelinluettelo\node_modules
+Osa_02\puhelinluettelo\.pnp
+Osa_02\puhelinluettelo\**\.pnp.js
+
+# testing
+Osa_02\puhelinluettelo\coverage
+
+# production
+Osa_02\puhelinluettelo\build
+
+# misc
+Osa_02\puhelinluettelo\**\.DS_Store
+Osa_02\puhelinluettelo\**\.env.local
+Osa_02\puhelinluettelo\**\.env.development.local
+Osa_02\puhelinluettelo\**\.env.test.local
+Osa_02\puhelinluettelo\**\.env.production.local
+
+Osa_02\puhelinluettelo\**\npm-debug.log*
+Osa_02\puhelinluettelo\**\yarn-debug.log*
+Osa_02\puhelinluettelo\**\yarn-error.log*
+fly.toml
+
+.env

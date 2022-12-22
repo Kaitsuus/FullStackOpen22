@@ -1,0 +1,13 @@
+Käyttäjä->selain Syöttää kenttään uuden noten.
+Käyttäj->selain painaa save nappia
+selain->js Js käsittelee
+Js->palvelin uudelleenohjauspyyntö
+palvelin->selain Get html.
+palvein->selain html
+selain->palvelin Get css
+palvelin->selain-> css
+selain->palvelin-> Get Js
+palvelin->Js suorittaa Js-koodin
+Js->palvelin GET JSON
+palvelin->selain JSON
+selain -> lataa uudelleen ja suorittaatapahtuman, joka renderöi muistuunpanot näytölle.
