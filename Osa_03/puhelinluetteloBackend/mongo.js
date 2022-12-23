@@ -1,50 +1,46 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 if (process.argv.length < 3) {
-  console.log('give password as argument')
-  process.exit(1)
+  console.log(
+    "Please provide the password as an argument: node mongo.js <password>"
+  );
+  process.exit(1);
 }
 
-const password = process.argv[2]
-const contactName = process.argv[3]
-const contactNumber = process.argv[4]
+const password = process.argv[2];
 
+const url = `mongodb+srv://kaitsuus:${password}@cluster0.ueosjtn.mongodb.net/phonebookApp?retryWrites=true&w=majority`
 
-const url =
-  'mongo here'
+mongoose.connect(url);
 
-mongoose.connect(url)
-
-const contactSchema = new mongoose.Schema({
+const personSchema = new mongoose.Schema({
   name: String,
   number: String,
-})
+});
 
-const Contact = mongoose.model('Contact', contactSchema)
+const Person = mongoose.model("Person", personSchema);
 
-const addNewContact = (contactName, contactNumber) => {
-  const contact = new Contact({
-    name: contactName,
-    number: contactNumber
-  })
-
-  contact.save().then(result => {
-    console.log(`added ${contact.name} number ${contact.number} to phonebook`)
-    mongoose.connection.close()
-  })
+if (process.argv.length === 3) {
+  Person.find({}).then((result) => {
+    console.log("phonebook:");
+    result.forEach((person) => {
+      console.log(person.name, person.number);
+    });
+    mongoose.connection.close();
+  });
 }
 
-const listContacts = () => {
-  Contact.find({}).then(result => {
-    result.forEach(contact => {
-      console.log(contact)
-    })
-    mongoose.connection.close()
-  })
-}
+if (process.argv.length > 3) {
+  const name = process.argv[3];
+  const number = process.argv[4];
 
-if (contactName && contactNumber) {
-  addNewContact(contactName, contactNumber)
-} else {
-  listContacts()
+  const person = new Person({
+    name: name,
+    number: number,
+  });
+
+  person.save().then(() => {
+    console.log(`added ${name} number ${number} to phonebook`);
+    mongoose.connection.close();
+  });
 }
