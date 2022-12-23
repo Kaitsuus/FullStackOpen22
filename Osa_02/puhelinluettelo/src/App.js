@@ -103,8 +103,7 @@ const App = () => {
   }
   const deletePerson = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
-      personService.deletePerson(id)
-        .then((response) => {
+      personService.remove(id).then((response) => {
         const updatedPersons = persons.filter((person) => person.id !== id);
         setPersons(updatedPersons);
         setShowPerson(updatedPersons);
