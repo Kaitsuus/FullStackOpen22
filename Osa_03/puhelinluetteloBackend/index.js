@@ -6,7 +6,9 @@ require("dotenv").config();
 const Person = require("./models/person");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000", process.env.ORIGIN]
+}));
 app.use(express.static("build"));
 
 morgan.token("data", (request) => {
