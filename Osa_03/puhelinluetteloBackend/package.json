@@ -1,0 +1,29 @@
+{
+    "name": "puhelinluettelobackend",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:ui": "rm -rf build && cd ../Osa_02/puhelinluettelo/ && npm run build && cp -r build ../Osa_03/puhelinluetteloBackend",
+        "deploy": "fly deploy",
+        "deploy:full": "npm run build:ui && npm run deploy",
+        "logs:prod": "fly logs"
+    },
+    "author": "Kai Jukarainen",
+    "license": "MIT",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mongoose": "^6.8.1",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.30.0",
+        "eslint-plugin-react": "^7.31.11",
+        "nodemon": "^2.0.20"
+    }
+}

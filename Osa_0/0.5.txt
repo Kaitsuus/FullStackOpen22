@@ -1,0 +1,5 @@
+selain->palvelin GET content
+palvein->selain content
+selain->palvelin GET content JSON
+palvelin->selain parse JSON
+JSON->selain renderöi sisällön
