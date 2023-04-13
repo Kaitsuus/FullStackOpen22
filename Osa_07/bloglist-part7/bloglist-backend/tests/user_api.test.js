@@ -19,14 +19,13 @@ beforeEach(async () => {
 })
 
 describe('USER CREATION: USERNAME TESTS', () => {
-
   test('user creation succeeds with a fresh username', async () => {
     const usersAtStart = await testHelper.usersInDb()
 
     const newUser = {
       username: 'test-username',
       name: 'Test User',
-      password: 'very-secret-123',
+      password: 'very-secret-123'
     }
 
     await api
@@ -38,7 +37,7 @@ describe('USER CREATION: USERNAME TESTS', () => {
     const usersAtEnd = await testHelper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
 
-    const usernames = usersAtEnd.map(u => u.username)
+    const usernames = usersAtEnd.map((u) => u.username)
     expect(usernames).toContain(newUser.username)
   })
 
@@ -48,7 +47,7 @@ describe('USER CREATION: USERNAME TESTS', () => {
     const newUser = {
       username: 'root',
       name: 'Superuser',
-      password: 'rootbeer',
+      password: 'rootbeer'
     }
 
     const result = await api
@@ -79,7 +78,8 @@ describe('USER CREATION: USERNAME TESTS', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    const validationErrorMessage = 'User validation failed: username: Path `username` (`us`) is shorter than the minimum allowed length (3).'
+    const validationErrorMessage =
+      'User validation failed: username: Path `username` (`us`) is shorter than the minimum allowed length (3).'
     expect(result.body.error).toContain(validationErrorMessage)
 
     const usersAtEnd = await testHelper.usersInDb()
@@ -100,18 +100,16 @@ describe('USER CREATION: USERNAME TESTS', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    const validationErrorMessage = 'User validation failed: username: Path `username` is required.'
+    const validationErrorMessage =
+      'User validation failed: username: Path `username` is required.'
     expect(result.body.error).toContain(validationErrorMessage)
 
     const usersAtEnd = await testHelper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
-
-
 })
 
 describe('USER CREATION: PASSWORD TESTS', () => {
-
   test('user creation fails if password is too short', async () => {
     const usersAtStart = await testHelper.usersInDb()
 
@@ -154,5 +152,4 @@ describe('USER CREATION: PASSWORD TESTS', () => {
     const usersAtEnd = await testHelper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
-
 })

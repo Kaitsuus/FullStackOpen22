@@ -1,69 +1,67 @@
-import { useState } from 'react';
-import { Button, Input } from './FormHelper';
+import { useState } from 'react'
+import { Button, Input } from './FormHelper'
 
 export const LoginForm = ({ loginUser }) => {
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+    setUsername(event.target.value)
+  }
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    setPassword(event.target.value)
+  }
 
   // loginUser is defined in App
   const signIn = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     loginUser({
       username: username,
       password: password
-    });
+    })
 
-    setUsername('');
-    setPassword('');
-  };
+    setUsername('')
+    setPassword('')
+  }
 
   const buttonStyle = {
     cursor: 'pointer'
-  };
+  }
 
   return (
     <div>
       <h2>Login</h2>
 
       <form onSubmit={signIn}>
-
         <Input
-          id='login-username'
-          text='username: '
-          type='text'
-          autoComplete='off'
+          id="login-username"
+          text="username: "
+          type="text"
+          autoComplete="off"
           value={username}
-          name='username'
-          onChange={handleUsernameChange} />
+          name="username"
+          onChange={handleUsernameChange}
+        />
 
         <Input
-          id='login-password'
-          text='password: '
-          type='password'
-          autoComplete='off'
+          id="login-password"
+          text="password: "
+          type="password"
+          autoComplete="off"
           value={password}
-          name='password'
+          name="password"
           onChange={handlePasswordChange}
         />
 
         <Button
-          id='login-button'
+          id="login-button"
           style={buttonStyle}
-          type='submit'
-          text='LOGIN'
+          type="submit"
+          text="LOGIN"
         />
-
       </form>
     </div>
-  );
-};
+  )
+}

@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 export const Button = (props) => (
-
   <button
     className={props.className}
     style={props.style}
@@ -9,12 +8,9 @@ export const Button = (props) => (
     onClick={props.onClick}
     id={props.id}
   >
-
     {props.text}
-
   </button>
-
-);
+)
 
 export const Input = (props) => (
   <p>
@@ -28,16 +24,16 @@ export const Input = (props) => (
       autoComplete={props.autoComplete}
     />
   </p>
-);
+)
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
-};
+}
 
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
-};
+}

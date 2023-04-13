@@ -3,9 +3,7 @@ const Blog = require('../models/blog')
 const { userExtractor } = require('../utils/middleware')
 
 blogsRouter.get('/', async (request, response) => {
-  const blogs = await Blog
-    .find({})
-    .populate('user', { username: 1, name: 1 })
+  const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
 
   response.json(blogs)
 })
@@ -18,16 +16,13 @@ blogsRouter.get('/:id', async (request, response) => {
   } else {
     response.status(404).end()
   }
-
 })
 
 blogsRouter.post('/', userExtractor, async (request, response) => {
   const body = request.body
   const user = await request.user
 
-  const likes = body.likes === undefined
-    ? 0
-    : body.likes
+  const likes = body.likes === undefined ? 0 : body.likes
 
   const blog = new Blog({
     title: body.title,
@@ -46,7 +41,6 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
   response.status(201).json(savedBlog)
 })
 
-
 blogsRouter.put('/:id', userExtractor, async (request, response) => {
   const body = request.body
   const user = await request.user
@@ -60,7 +54,11 @@ blogsRouter.put('/:id', userExtractor, async (request, response) => {
   }
 
   if (blog.user.toString() === user._id.toString()) {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, dataForBlogUpdate, { new: true })
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      request.params.id,
+      dataForBlogUpdate,
+      { new: true }
+    )
     response.json(updatedBlog)
   } else {
     response.status(401).json({
@@ -73,7 +71,11 @@ blogsRouter.put('/like/:id', userExtractor, async (request, response) => {
   const user = await request.user
 
   if (user) {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, { $inc: { likes: 1 } }, { new: true })
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      request.params.id,
+      { $inc: { likes: 1 } },
+      { new: true }
+    )
     response.json(updatedBlog)
   } else {
     response.status(401).json({
@@ -94,7 +96,6 @@ blogsRouter.delete('/:id', userExtractor, async (request, response) => {
       error: 'no permission'
     })
   }
-
 })
 
 module.exports = blogsRouter

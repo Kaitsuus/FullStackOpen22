@@ -1,9 +1,7 @@
 const listHelper = require('../utils/list_helper')
 const testMaterials = require('./test_materials')
 
-
 describe('THE MOST LIKED AUTHOR:', () => {
-
   test('most liked author of empty blog list', () => {
     const result = listHelper.mostLikes(testMaterials.listWithoutBlogs)
     expect(result).toEqual('no blogs')
@@ -18,12 +16,9 @@ describe('THE MOST LIKED AUTHOR:', () => {
     const result = listHelper.mostLikes(testMaterials.listWithManyBlogs)
     expect(result).toEqual({ author: 'Edsger W. Dijkstra', likes: 17 })
   })
-
 })
 
-
 describe('THE MOST PRODUCTIVE AUTHOR:', () => {
-
   test('most productive author of empty blog list', () => {
     const result = listHelper.mostBlogs(testMaterials.listWithoutBlogs)
     expect(result).toEqual('no blogs')
@@ -38,5 +33,4 @@ describe('THE MOST PRODUCTIVE AUTHOR:', () => {
     const result = listHelper.mostBlogs(testMaterials.listWithManyBlogs)
     expect(result).toEqual({ author: 'Robert C. Martin', blogs: 3 })
   })
-
 })
