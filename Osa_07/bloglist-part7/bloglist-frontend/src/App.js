@@ -1,171 +1,74 @@
-import { useState, useEffect, useRef } from 'react'
-import { Blog } from './components/Blog'
-import { LoginForm } from './components/LoginForm'
-import { BlogForm } from './components/BlogForm'
-import { Togglable } from './components/Togglable'
-import { Button } from './components/FormHelper'
-import {
-  ErrorNotification,
-  SuccessNotification
-} from './components/Notification'
-import blogService from './services/blogs'
-import loginService from './services/login'
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import Blogs from './components/Blog';
+import { initializeUser } from './reducers/userReducer';
+import { createNotification } from './reducers/notificationReducer';
+import loginService from './services/login';
+import { loginUser } from './reducers/userReducer';
+import LoginForm from './components/LoginForm';
+import Notification from './components/Notification';
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
-  const [user, setUser] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSuccessMessage] = useState(null)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    blogService.getAll().then((initialBlogs) => setBlogs(initialBlogs))
-  }, [])
+    dispatch(initializeUser());
+  }, [dispatch]);
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+  const user = useSelector(({ user }) => {
+    return user;
+  });
 
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
-    }
-  }, [])
+  const notification = useSelector(({ notification }) => {
+    return notification;
+  });
 
-  const showSuccessMessage = (message) => {
-    setSuccessMessage(message)
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 3000)
-  }
+  const notify = (message, type) => {
+    const time = 3;
+    dispatch(createNotification(message, time, type));
+  };
 
-  const showErrorMessage = (message) => {
-    setErrorMessage(message)
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 3000)
-  }
-
-  const handleLogout = async (event) => {
-    event.preventDefault()
-
-    try {
-      showSuccessMessage(`Goodbye ${user.name}`)
-      window.localStorage.clear()
-      blogService.setToken(null)
-      setUser(null)
-    } catch (exception) {
-      showErrorMessage('something went wrong, try to logout again')
-    }
-  }
-
-  const loginUser = (userObject) => {
+  const login = async (username, password) => {
     loginService
-      .login(userObject)
-      .then((returnedUser) => {
-        setUser(returnedUser)
-        blogService.setToken(returnedUser.token)
-        window.localStorage.setItem(
-          'loggedBloglistUser',
-          JSON.stringify(returnedUser)
-        )
-        showSuccessMessage(`Welcome ${returnedUser.name}`)
+      .login({
+        username,
+        password
       })
-      .catch((error) => {
-        showErrorMessage('wrong credentials')
+      .then((user) => {
+        dispatch(loginUser(user));
+        notify(`${user.name} logged in!`);
       })
-  }
+      .catch(() => {
+        notify('wrong username/password', 'alert');
+      });
+  };
 
   const loginView = () => {
     return (
       <div>
-        <Togglable buttonLabel="PLEASE LOG IN">
-          <LoginForm loginUser={loginUser} />
-        </Togglable>
+        <LoginForm onLogin={login} />
       </div>
-    )
-  }
+    );
+  };
 
-  const blogFormRef = useRef()
-
-  const addBlog = (blogObject) => {
-    blogFormRef.current.togglableHandle()
-
-    blogService
-      .create(blogObject)
-      .then((returnedBlog) => {
-        setBlogs(blogs.concat(returnedBlog))
-        showSuccessMessage(
-          `New blog "${returnedBlog.title}" by ${returnedBlog.author} added`
-        )
-      })
-      .catch((error) => {
-        showErrorMessage(
-          'Sorry, something went wrong: ' + error.response.data.error
-        )
-      })
-  }
-
-  const blogView = () => {
+  const blogAppView = () => {
     return (
       <div>
-        {showLoggedUser()}
-
-        <Togglable buttonLabel="ADD A NEW BLOG" ref={blogFormRef}>
-          <BlogForm addBlog={addBlog} />
-        </Togglable>
-
-        <Togglable buttonLabel="SHOW ALL BLOGS">
-          {blogs.length === 0
-            ? 'Sorry, no blogs added at the moment'
-            : showBlogs()}
-        </Togglable>
+        <Blogs user={user} notification={notification} notify={notify} />
       </div>
-    )
-  }
-
-  const showLoggedUser = () => (
-    <div>
-      {user.name} logged in{' '}
-      <Button
-        style={{ cursor: 'pointer' }}
-        type="button"
-        onClick={handleLogout}
-        text="LOGOUT"
-      />
-    </div>
-  )
-
-  const showBlogs = () => {
-    blogs.sort((a, b) => b.likes - a.likes)
-
-    return (
-      <div>
-        <h3> Click blog name for more details</h3>
-        {blogs.map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            blogs={blogs}
-            setBlogs={setBlogs}
-            user={user}
-            showSuccessMessage={showSuccessMessage}
-            showErrorMessage={showErrorMessage}
-          />
-        ))}
-      </div>
-    )
-  }
+    );
+  };
 
   return (
-    <div>
-      <h2>BLOGS</h2>
+    <Router>
+      <div>
+        <Notification notification={notification} />
+        {user === null ? loginView() : blogAppView()}
+      </div>
+    </Router>
+  );
+};
 
-      <ErrorNotification message={errorMessage} />
-      <SuccessNotification message={successMessage} />
-
-      {user === null ? loginView() : blogView()}
-    </div>
-  )
-}
-
-export default App
+export default App;
