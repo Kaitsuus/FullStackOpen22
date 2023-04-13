@@ -8,20 +8,20 @@ const blog = {
     username: 'linus',
     name: 'Linus Torvald'
   }
-}
+};
 
 const loggedInUser = {
   username: 'random'
-}
+};
 
 const loggedInUserAndBlogOwner = {
   username: 'linus'
-}
+};
 
 const testService = {
   blog,
   loggedInUser,
   loggedInUserAndBlogOwner
-}
+};
 
-export default testService
+export default testService;

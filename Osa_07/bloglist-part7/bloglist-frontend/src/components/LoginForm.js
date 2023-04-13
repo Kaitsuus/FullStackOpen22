@@ -1,67 +1,51 @@
-import { useState } from 'react'
-import { Button, Input } from './FormHelper'
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
-export const LoginForm = ({ loginUser }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+const LoginForm = ({ onLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value)
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onLogin(username, password);
+  };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  // loginUser is defined in App
-  const signIn = (event) => {
-    event.preventDefault()
-
-    loginUser({
-      username: username,
-      password: password
-    })
-
-    setUsername('')
-    setPassword('')
-  }
-
-  const buttonStyle = {
-    cursor: 'pointer'
-  }
+  const headerStyle = {
+    color: "#2a3eb1"
+  };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <Box>
+      <h2 style={headerStyle}>Log in to application</h2>
 
-      <form onSubmit={signIn}>
-        <Input
-          id="login-username"
-          text="username: "
-          type="text"
-          autoComplete="off"
-          value={username}
-          name="username"
-          onChange={handleUsernameChange}
-        />
+      <Box component="form" onSubmit={handleSubmit}>
+        <Box marginBottom={1}>
+          <TextField
+            size='small'
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
+            id="username"
+            placeholder='username'
+          />
+        </Box>
+        <Box marginBottom={1}>
+          <TextField
+            size='small'
+            type="password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+            id="password"
+            placeholder='password'
+          />
+        </Box>
+        <Button id="login-Button" type="submit" variant='contained'>
+          login
+        </Button>
+      </Box>
+    </Box>
+  );
+};
 
-        <Input
-          id="login-password"
-          text="password: "
-          type="password"
-          autoComplete="off"
-          value={password}
-          name="password"
-          onChange={handlePasswordChange}
-        />
-
-        <Button
-          id="login-button"
-          style={buttonStyle}
-          type="submit"
-          text="LOGIN"
-        />
-      </form>
-    </div>
-  )
-}
+export default LoginForm;

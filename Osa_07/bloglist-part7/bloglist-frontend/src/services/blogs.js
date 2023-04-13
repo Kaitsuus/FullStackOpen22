@@ -1,61 +1,40 @@
-import axios from 'axios'
+import axios from 'axios';
+import userService from './user';
 
-const baseUrl = '/api/blogs'
+const baseUrl = '/api/blogs';
 
-let token = null
+const config = () => {
+  return {
+    headers: {
+      Authorization: `bearer ${userService.getToken()}`
+    }
+  };
+};
 
-const setToken = (newToken) => {
-  token = `bearer ${newToken}`
-}
-
-const getAll = async () => {
-  const request = axios.get(baseUrl)
-  const response = await request
-  return response.data
-}
+const getAll = () => {
+  const request = axios.get(baseUrl);
+  return request.then((response) => response.data);
+};
 
 const create = async (newObject) => {
-  const config = {
-    headers: { Authorization: token }
-  }
+  const response = await axios.post(baseUrl, newObject, config());
+  return response.data;
+};
 
-  const response = await axios.post(baseUrl, newObject, config)
-  return response.data
-}
+const update = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject);
+  return request.then((response) => response.data);
+};
 
-const update = async (id, newObject) => {
-  const config = {
-    headers: { Authorization: token }
-  }
-  const request = axios.put(`${baseUrl}/${id}`, newObject, config)
-  const response = await request
-  return response.data
-}
+const createComment = (id, newObject) => {
+  const request = axios.post(`${baseUrl}/${id}/comments`, newObject);
+  return request.then((response) => response.data);
+};
 
-const updateLike = async (id, blogObject) => {
-  const config = {
-    headers: { Authorization: token }
-  }
-  const request = axios.put(`${baseUrl}/like/${id}`, blogObject, config)
-  const response = await request
-  return response.data
-}
+const remove = (id) => {
+  return axios.delete(`${baseUrl}/${id}`, config());
+};
 
-const remove = async (id) => {
-  const config = {
-    headers: { Authorization: token }
-  }
-  const response = await axios.delete(`${baseUrl}/${id}`, config)
-  return response.data
-}
+const blogService = { getAll, create, createComment, update, remove };
 
-const blogService = {
-  setToken,
-  getAll,
-  create,
-  update,
-  updateLike,
-  remove
-}
-
-export default blogService
+export default blogService;

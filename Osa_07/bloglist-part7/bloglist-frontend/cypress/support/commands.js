@@ -1,28 +1,28 @@
 Cypress.Commands.add('resetDatabase', () => {
-  cy.request('POST', 'http://localhost:3003/api/testing/reset')
-  cy.visit('http://localhost:3000')
-})
+  cy.request('POST', 'http://localhost:3003/api/testing/reset');
+  cy.visit('http://localhost:3000');
+});
 
 Cypress.Commands.add('addTestUser', ({ name, username, password }) => {
-  const user = { name, username, password }
-  cy.request('POST', 'http://localhost:3003/api/users/', user)
-  cy.visit('http://localhost:3000')
-})
+  const user = { name, username, password };
+  cy.request('POST', 'http://localhost:3003/api/users/', user);
+  cy.visit('http://localhost:3000');
+});
 
 Cypress.Commands.add('login', ({ username, password }) => {
   cy.request('POST', 'http://localhost:3001/api/login', {
     username,
     password
   }).then(({ body }) => {
-    localStorage.setItem('loggedBloglistUser', JSON.stringify(body))
-    cy.visit('http://localhost:3000')
-  })
-})
+    localStorage.setItem('loggedBloglistUser', JSON.stringify(body));
+    cy.visit('http://localhost:3000');
+  });
+});
 
 Cypress.Commands.add('logout', () => {
-  localStorage.clear()
-  cy.visit('http://localhost:3000')
-})
+  localStorage.clear();
+  cy.visit('http://localhost:3000');
+});
 
 Cypress.Commands.add('createBlog', ({ title, author, url, likes }) => {
   cy.request({
@@ -34,6 +34,6 @@ Cypress.Commands.add('createBlog', ({ title, author, url, likes }) => {
         JSON.parse(localStorage.getItem('loggedBloglistUser')).token
       }`
     }
-  })
-  cy.visit('http://localhost:3000')
-})
+  });
+  cy.visit('http://localhost:3000');
+});

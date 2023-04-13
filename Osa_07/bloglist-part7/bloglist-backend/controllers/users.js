@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt')
-const usersRouter = require('express').Router()
+const router = require('express').Router()
 const User = require('../models/user')
 
-usersRouter.get('/', async (request, response) => {
+router.get('/', async (request, response) => {
   const users = await User.find({}).populate('blogs', {
-    title: 1,
     author: 1,
+    title: 1,
     url: 1,
     likes: 1
   })
@@ -13,7 +13,7 @@ usersRouter.get('/', async (request, response) => {
   response.json(users)
 })
 
-usersRouter.get('/:id', async (request, response) => {
+router.get('/:id', async (request, response) => {
   const user = await User.findById(request.params.id).populate('blogs', {
     title: 1,
     author: 1,
@@ -28,18 +28,19 @@ usersRouter.get('/:id', async (request, response) => {
   }
 })
 
-usersRouter.post('/', async (request, response) => {
+router.post('/', async (request, response) => {
   const { username, name, password } = request.body
 
-  if (!password) {
+  if (!password || password.length < 3) {
     return response.status(400).json({
-      error: 'password is missing'
+      error: 'invalid password'
     })
   }
 
-  if (password.length < 3) {
+  const existingUser = await User.findOne({ username })
+  if (existingUser) {
     return response.status(400).json({
-      error: 'password must be at least 3 characters long'
+      error: 'username must be unique'
     })
   }
 
@@ -57,4 +58,4 @@ usersRouter.post('/', async (request, response) => {
   response.status(201).json(savedUser)
 })
 
-module.exports = usersRouter
+module.exports = router
