@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, Link, useMatch, useNavigate } from "react-router-dom";
+import { useField } from "./hooks"
 
 const Menu = () => {
   const padding = {
@@ -60,39 +61,47 @@ const Footer = () => (
   </div>
 );
 
-const CreateNew = (props) => {
-  const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
-  const [info, setInfo] = useState('');
+const CreateNew = ({ addNew }) => {
+  const content = useField('text');
+  const author = useField('text');
+  const info = useField('text');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    props.addNew({
-      content,
-      author,
-      info,
-      votes: 0
+  const handleSubmit = e => {
+    e.preventDefault();
+    addNew({
+      content: content.value,
+      author: author.value,
+      info: info.value,
+      votes: 0,
     })
     navigate("/")
-  };
+
+  }
+  const handleReset = () => {
+    content.onReset()
+    author.onReset()
+    info.onReset()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input name='content' {...content} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input name='author' {...author} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input name='info' {...info} />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
+        <button type='reset' onClick={handleReset}>reset</button>
       </form>
     </div>
   )
@@ -104,6 +113,7 @@ const Anecdote = ({ anecdote }) => {
       <h2>
         {anecdote.content} by {anecdote.author}
       </h2>
+      <p>has {anecdote.votes} votes</p>
       <p>
         for more info see <a href={anecdote.info}>{anecdote.info}</a>
       </p>
@@ -152,17 +162,14 @@ const App = () => {
     }, 5000)
   };
 
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id);
+  const anecdoteById = id => anecdotes.find(a => a.id === id);
 
-  const vote = (id) => {
+  const vote = id => {
     const anecdote = anecdoteById(id);
-
     const voted = {
       ...anecdote,
       votes: anecdote.votes + 1
     }
-
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   };
 
@@ -172,6 +179,7 @@ const App = () => {
         <Menu />
         <Notification notification={notification} />
           <Routes>
+            {console.log(vote)}
             <Route 
             path='/'
             element={<AnecdoteList anecdotes={anecdotes} />}
