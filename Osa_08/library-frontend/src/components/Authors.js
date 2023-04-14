@@ -13,22 +13,22 @@ import {
 const Authors = (props) => {
   const result = useQuery(ALL_AUTHORS);
 
-    if (!props.show) {
-      return null
-    }
-    if (result.loading) {
-      return <div>loading...</div>;
-    }
-    const authors = result.data.allAuthors || [];
-  
-    return (
-      <div>
-        <TableContainer sx={{ minWidth: 250 }} component={Paper}>
+  if (!props.show) {
+    return null;
+  }
+  if (result.loading) {
+    return <div>loading...</div>;
+  }
+  const authors = result.data.allAuthors || [];
+
+  return (
+    <div>
+      <TableContainer sx={{ minWidth: 250 }} component={Paper}>
         <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>
-              <h2>Authors</h2>
+                <h2>Authors</h2>
               </TableCell>
               <TableCell>
                 <strong>Born</strong>
@@ -42,15 +42,15 @@ const Authors = (props) => {
             {authors.map((a) => (
               <TableRow key={a.name}>
                 <TableCell>{a.name}</TableCell>
-                <TableCell >{a.born}</TableCell>
-                <TableCell >{a.bookCount}</TableCell>
+                <TableCell>{a.born}</TableCell>
+                <TableCell>{a.bookCount}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      </div>
-    )
-  }
-  
-  export default Authors
+    </div>
+  );
+};
+
+export default Authors;
