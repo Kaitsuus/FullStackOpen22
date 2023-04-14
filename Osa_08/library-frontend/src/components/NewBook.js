@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Button from '@mui/material/Button';
+import { Box } from '@mui/material';
+import TextField from '@mui/material/TextField';
 
 const NewBook = (props) => {
   const [title, setTitle] = useState('')
@@ -29,43 +32,50 @@ const NewBook = (props) => {
   }
 
   return (
-    <div>
-      <form onSubmit={submit}>
-        <div>
-          title
-          <input
+    <Box>
+      <Box component="form" onSubmit={submit}>
+        <Box paddingTop={1}>
+          <TextField
+            size="small"
             value={title}
+            placeholder='Title'
             onChange={({ target }) => setTitle(target.value)}
           />
-        </div>
-        <div>
-          author
-          <input
+        </Box>
+        <Box paddingTop={1}>
+          <TextField
+            size="small"
             value={author}
+            placeholder='Author'
             onChange={({ target }) => setAuthor(target.value)}
           />
-        </div>
-        <div>
-          published
-          <input
+        </Box>
+        <Box paddingTop={1}>
+          <TextField
+            size="small"
             type="number"
             value={published}
+            placeholder='Published'
             onChange={({ target }) => setPublished(target.value)}
           />
-        </div>
-        <div>
-          <input
+        </Box>
+        <Box display={"flex"} paddingTop={1} gap={1}>
+          <TextField
+            size="small"
             value={genre}
             onChange={({ target }) => setGenre(target.value)}
+            placeholder='Genre'
           />
-          <button onClick={addGenre} type="button">
+          <Button variant='contained' size='small' onClick={addGenre} type="button">
             add genre
-          </button>
-        </div>
-        <div>genres: {genres.join(' ')}</div>
-        <button type="submit">create book</button>
-      </form>
-    </div>
+          </Button>
+        </Box>
+        <Box paddingTop={1}><h4> genres: </h4> {genres.join(' ')}</Box>
+        <Box paddingTop={1}>
+        <Button variant='contained' size='small' type="submit">create book</Button>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

@@ -1,3 +1,5 @@
+import { useQuery } from '@apollo/client';
+import { ALL_AUTHORS } from '../queries';
 import {
   Table,
   TableHead,
@@ -8,12 +10,16 @@ import {
   Paper
 } from '@mui/material';
 
-const Books = (props) => {
+const Authors = (props) => {
+  const result = useQuery(ALL_AUTHORS);
+
     if (!props.show) {
       return null
     }
-  
-    const books = []
+    if (result.loading) {
+      return <div>loading...</div>;
+    }
+    const authors = result.data.allAuthors || [];
   
     return (
       <div>
@@ -22,22 +28,22 @@ const Books = (props) => {
           <TableHead>
             <TableRow>
               <TableCell>
-              <h2>Books</h2>
+              <h2>Authors</h2>
               </TableCell>
               <TableCell>
-                <strong>Author</strong>
+                <strong>Born</strong>
               </TableCell>
               <TableCell>
-                <strong>Published</strong>
+                <strong>Books</strong>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {books.map((a) => (
-              <TableRow key={a.title}>
-                <TableCell>{a.title}</TableCell>
-                <TableCell >{a.author}</TableCell>
-                <TableCell >{a.published}</TableCell>
+            {authors.map((a) => (
+              <TableRow key={a.name}>
+                <TableCell>{a.name}</TableCell>
+                <TableCell >{a.born}</TableCell>
+                <TableCell >{a.bookCount}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -47,4 +53,4 @@ const Books = (props) => {
     )
   }
   
-  export default Books
+  export default Authors
