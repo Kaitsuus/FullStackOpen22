@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Button, Input } from './FormHelper';
 
 export const LoginForm = ({ loginUser }) => {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,33 +35,32 @@ export const LoginForm = ({ loginUser }) => {
       <h2>Login</h2>
 
       <form onSubmit={signIn}>
-
         <Input
-          id='login-username'
-          text='username: '
-          type='text'
-          autoComplete='off'
+          id="login-username"
+          text="username: "
+          type="text"
+          autoComplete="off"
           value={username}
-          name='username'
-          onChange={handleUsernameChange} />
+          name="username"
+          onChange={handleUsernameChange}
+        />
 
         <Input
-          id='login-password'
-          text='password: '
-          type='password'
-          autoComplete='off'
+          id="login-password"
+          text="password: "
+          type="password"
+          autoComplete="off"
           value={password}
-          name='password'
+          name="password"
           onChange={handlePasswordChange}
         />
 
         <Button
-          id='login-button'
+          id="login-button"
           style={buttonStyle}
-          type='submit'
-          text='LOGIN'
+          type="submit"
+          text="LOGIN"
         />
-
       </form>
     </div>
   );

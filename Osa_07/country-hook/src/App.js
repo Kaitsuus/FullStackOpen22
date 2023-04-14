@@ -5,14 +5,14 @@ const useField = (type) => {
   const [value, setValue] = useState('');
 
   const onChange = (event) => {
-    setValue(event.target.value)
+    setValue(event.target.value);
   };
 
   return {
     type,
     value,
     onChange
-  }
+  };
 };
 
 const useCountry = (name) => {
@@ -21,37 +21,35 @@ const useCountry = (name) => {
   useEffect(() => {
     if (name !== '') {
       axios
-        .get(`https://restcountries.com/v3.1/name/${(name)}?fields=name,capital,flags,population`)
-        .then(response => {
-          setCountry(response.data[0])
-        })
+        .get(
+          `https://restcountries.com/v3.1/name/${name}?fields=name,capital,flags,population`
+        )
+        .then((response) => {
+          setCountry(response.data[0]);
+        });
     }
-  }, [name])
+  }, [name]);
 
-  return country
+  return country;
 };
 
 const Country = ({ country }) => {
   if (!country) {
-    return <div>not found...</div>
-  };
+    return <div>not found...</div>;
+  }
 
   return (
     <div>
       <h3> {country.name.common} </h3>
-      <div>
-        population {country.population}
-      </div>
-      <div>
-        capital {country.capital}
-      </div>
+      <div>population {country.population}</div>
+      <div>capital {country.capital}</div>
       <img
         src={country.flags.png}
-        height='100'
+        height="100"
         alt={`flag of ${country.name.common}`}
       />
     </div>
-  )
+  );
 };
 
 const App = () => {
@@ -60,20 +58,18 @@ const App = () => {
   const country = useCountry(name);
 
   const fetch = (event) => {
-    event.preventDefault()
-    setName(nameInput.value)
+    event.preventDefault();
+    setName(nameInput.value);
   };
 
   return (
     <div>
       <form onSubmit={fetch}>
         <input {...nameInput} />
-        <button>
-          find
-        </button>
+        <button>find</button>
       </form>
       <Country country={country} />
     </div>
-  )
+  );
 };
 export default App;

@@ -11,13 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.success-message{
+.success-message {
   background-color: rgb(40, 248, 40);
   width: 100%;
   font-size: 40px;
   font-weight: bold;
 }
-.error-message{
+.error-message {
   background-color: red;
   width: 100%;
   font-size: 40px;

@@ -49,7 +49,6 @@ const remove = async (id) => {
   return response.data;
 };
 
-
 const blogService = {
   setToken,
   getAll,

@@ -15,11 +15,11 @@ describe('unicafe reducer', () => {
       type: 'DO_NOTHING'
     };
 
-    const newState = counterReducer(undefined, action)
-    expect(newState).toEqual(initialState)
-    });
+    const newState = counterReducer(undefined, action);
+    expect(newState).toEqual(initialState);
+  });
 
-    test('good is incremented', () => {
+  test('good is incremented', () => {
     const action = {
       type: 'GOOD'
     };
@@ -36,52 +36,51 @@ describe('unicafe reducer', () => {
 
   test('ok is incremented', () => {
     const action = {
-        type: 'OK'
+      type: 'OK'
     };
     const state = initialState;
 
     deepFreeze(state);
     const newState = counterReducer(state, action);
     expect(newState).toEqual({
-        good: 0,
-        ok: 1,
-        bad: 0
+      good: 0,
+      ok: 1,
+      bad: 0
     });
   });
 
   test('bad is incremented', () => {
     const action = {
-        type: 'BAD'
+      type: 'BAD'
     };
     const state = initialState;
 
     deepFreeze(state);
     const newState = counterReducer(state, action);
     expect(newState).toEqual({
-        good: 0,
-        ok: 0,
-        bad: 1
+      good: 0,
+      ok: 0,
+      bad: 1
     });
   });
 
   test('state is reseted', () => {
     const action = {
-        type: 'ZERO'
+      type: 'ZERO'
     };
 
     const state = {
-        good: 5,
-        ok: 4,
-        bad:2
+      good: 5,
+      ok: 4,
+      bad: 2
     };
 
     deepFreeze(state);
     const newState = counterReducer(state, action);
     expect(newState).toEqual({
-        good: 0,
-        ok: 0,
-        bad: 0
+      good: 0,
+      ok: 0,
+      bad: 0
     });
   });
-
 });

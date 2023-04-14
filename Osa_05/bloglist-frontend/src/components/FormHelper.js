@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 export const Button = (props) => (
-
   <button
     className={props.className}
     style={props.style}
@@ -9,11 +8,8 @@ export const Button = (props) => (
     onClick={props.onClick}
     id={props.id}
   >
-
     {props.text}
-
   </button>
-
 );
 
 export const Input = (props) => (

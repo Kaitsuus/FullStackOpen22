@@ -24,7 +24,7 @@ const NewBlogForm = ({ onCreate }) => {
         <Box marginBottom={1}>
           <TextField
             multiline
-            size='small'
+            size="small"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
             id="title"
@@ -34,7 +34,7 @@ const NewBlogForm = ({ onCreate }) => {
         <Box marginBottom={1}>
           <TextField
             multiline
-            size='small'
+            size="small"
             value={author}
             onChange={({ target }) => setAuthor(target.value)}
             id="author"
@@ -44,17 +44,22 @@ const NewBlogForm = ({ onCreate }) => {
         <Box>
           <TextField
             multiline
-            size='small'
+            size="small"
             value={url}
             onChange={({ target }) => setUrl(target.value)}
             id="url"
             placeholder="url of the blog"
           />
-        </Box >
+        </Box>
         <Box marginBottom={1} marginTop={1}>
-        <Button variant='contained' size='small' id="create-butto" type="submit">
-          create
-        </Button>
+          <Button
+            variant="contained"
+            size="small"
+            id="create-butto"
+            type="submit"
+          >
+            create
+          </Button>
         </Box>
       </Box>
     </Box>

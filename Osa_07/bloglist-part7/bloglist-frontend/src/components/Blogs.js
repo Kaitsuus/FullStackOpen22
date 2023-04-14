@@ -22,7 +22,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 const linkStyle = {
-  textDecoration: "none",
+  textDecoration: 'none',
   color: 'white'
 };
 
@@ -34,11 +34,7 @@ const Blogs = ({ user, notify }) => {
     notify('good bye!');
   };
 
-  const showLoggedUser = () => (
-    <Box>
-      {user.name} logged in
-    </Box>
-  );
+  const showLoggedUser = () => <Box>{user.name} logged in</Box>;
 
   useEffect(() => {
     dispatch(initializeUsers());
@@ -103,24 +99,25 @@ const Blogs = ({ user, notify }) => {
     });
   };
 
-
   return (
-    <Box >
+    <Box>
       <AppBar>
         <List component={Stack} direction="row" width={150} padding={2}>
           <ListItem>
-        <Link to="/" style={linkStyle}>
-          BLOGS
-        </Link>
-        </ListItem>
-        <ListItem>
-        <Link to="/users" style={linkStyle}>
-          USERS
-        </Link>
-        </ListItem>
-        <ListItem>
-        <Button variant='contained' onClick={logout} size='small' >logout</Button>
-        </ListItem>
+            <Link to="/" style={linkStyle}>
+              BLOGS
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/users" style={linkStyle}>
+              USERS
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Button variant="contained" onClick={logout} size="small">
+              logout
+            </Button>
+          </ListItem>
         </List>
       </AppBar>
 

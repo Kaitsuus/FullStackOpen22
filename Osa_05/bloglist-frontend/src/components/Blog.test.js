@@ -6,28 +6,18 @@ import { Blog } from './Blog';
 import { BlogForm } from './BlogForm';
 import testService from '../services/tests';
 
-
 describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
-
   test('blog title button is rendered', () => {
-
-    const { container } = render(<Blog
-      blog={testService.blog}
-      user={testService.loggedInUser}
-    />);
+    const { container } = render(
+      <Blog blog={testService.blog} user={testService.loggedInUser} />
+    );
 
     const div = container.querySelector('.blogTitleButton');
     expect(div).toHaveTextContent('Canonical string reduction');
-
   });
 
-
   test('blog title is rendered, but author, url, likes and name of user are not rendered', () => {
-
-    render(<Blog
-      blog={testService.blog}
-      user={testService.loggedInUser}
-    />);
+    render(<Blog blog={testService.blog} user={testService.loggedInUser} />);
 
     const title = screen.getByText('Canonical string reduction');
     expect(title).toBeDefined();
@@ -35,7 +25,9 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
     const author = screen.queryByText('Edsger W. Dijkstra');
     expect(author).toBeNull();
 
-    const url = screen.queryByText('http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html');
+    const url = screen.queryByText(
+      'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html'
+    );
     expect(url).toBeNull();
 
     const likes = screen.queryByText('5');
@@ -43,18 +35,10 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
 
     const userName = screen.queryByText('Linus Torvald');
     expect(userName).toBeNull();
-
   });
 
-
   test('clicking the blog title button shows all the blog details', async () => {
-
-    render(
-      <Blog
-        blog={testService.blog}
-        user={testService.loggedInUser}
-      />
-    );
+    render(<Blog blog={testService.blog} user={testService.loggedInUser} />);
 
     const user = userEvent.setup();
     const button = screen.getByText('Canonical string reduction');
@@ -66,7 +50,9 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
     const author = screen.getByText('Edsger W. Dijkstra');
     expect(author).toBeDefined();
 
-    const url = screen.getByText('http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html');
+    const url = screen.getByText(
+      'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html'
+    );
     expect(url).toBeDefined();
 
     const likes = screen.getByText('5');
@@ -76,15 +62,8 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
     expect(userName).toBeDefined();
   });
 
-
   test('like button is rendered in blog details for every user, but remove button is not', async () => {
-
-    render(
-      <Blog
-        blog={testService.blog}
-        user={testService.loggedInUser}
-      />
-    );
+    render(<Blog blog={testService.blog} user={testService.loggedInUser} />);
 
     const user = userEvent.setup();
     const button = screen.getByText('Canonical string reduction');
@@ -95,12 +74,9 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
 
     const removeButton = screen.queryByText('REMOVE');
     expect(removeButton).toBeNull();
-
   });
 
-
   test('remove button is rendered in blog details if logged in user is blog owner', async () => {
-
     render(
       <Blog
         blog={testService.blog}
@@ -116,23 +92,15 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
     expect(removeButton).toBeDefined();
   });
 
-
   test('submitting the blog form calls addBlog function once', async () => {
-
     const mockHandler = jest.fn();
 
-    render(
-      <BlogForm
-        addBlog={mockHandler}
-      />
-    );
+    render(<BlogForm addBlog={mockHandler} />);
 
     const user = userEvent.setup();
     const button = screen.getByText('SAVE BLOG');
     await user.click(button);
 
     expect(mockHandler).toBeCalledTimes(1);
-
   });
-
 });

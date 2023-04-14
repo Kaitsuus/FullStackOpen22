@@ -2,7 +2,6 @@ import { useState, useImperativeHandle, forwardRef } from 'react';
 import { Button } from './FormHelper';
 
 export const Togglable = forwardRef((props, ref) => {
-
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -10,29 +9,22 @@ export const Togglable = forwardRef((props, ref) => {
   };
 
   const hideWhenVisible = {
-    display: visible ?
-      'none' :
-      ''
+    display: visible ? 'none' : ''
   };
 
   const showWhenVisible = {
-    display: visible ?
-      '' :
-      'none'
+    display: visible ? '' : 'none'
   };
 
-  useImperativeHandle(ref, () => (
-    { togglableHandle: toggleVisibility }
-  ));
+  useImperativeHandle(ref, () => ({ togglableHandle: toggleVisibility }));
 
   return (
     <div>
-
       <div style={hideWhenVisible}>
         <p>
           <Button
             style={{ cursor: 'pointer' }}
-            type='button'
+            type="button"
             onClick={toggleVisibility}
             text={props.buttonLabel}
             className={props.className}
@@ -40,18 +32,17 @@ export const Togglable = forwardRef((props, ref) => {
         </p>
       </div>
 
-      <div style={showWhenVisible} className='togglableContent'>
+      <div style={showWhenVisible} className="togglableContent">
         {props.children}
         <p>
           <Button
             style={{ cursor: 'pointer' }}
-            type='button'
+            type="button"
             onClick={toggleVisibility}
-            text='close'
+            text="close"
           />
         </p>
       </div>
-
     </div>
   );
 });

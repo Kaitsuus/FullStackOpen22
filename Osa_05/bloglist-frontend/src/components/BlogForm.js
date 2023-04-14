@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Button, Input } from './FormHelper.js';
 
 export const BlogForm = ({ addBlog }) => {
-
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
@@ -43,47 +42,43 @@ export const BlogForm = ({ addBlog }) => {
 
   return (
     <div>
-
       <h3>Please fill all fields</h3>
 
       <form onSubmit={saveBlog}>
-
         <Input
-          id='blogform-title'
-          text='title: '
-          type='text'
+          id="blogform-title"
+          text="title: "
+          type="text"
           value={title}
-          name='title'
+          name="title"
           onChange={handleTitleChange}
         />
 
         <Input
-          id='blogform-author'
-          text='author: '
-          type='text'
+          id="blogform-author"
+          text="author: "
+          type="text"
           value={author}
-          name='author'
+          name="author"
           onChange={handleAuthorChange}
         />
 
         <Input
-          id='blogform-url'
-          text='url: '
-          type='text'
+          id="blogform-url"
+          text="url: "
+          type="text"
           value={url}
-          name='url'
+          name="url"
           onChange={handleUrlChange}
         />
 
         <Button
-          id='blogform-button'
+          id="blogform-button"
           style={buttonStyle}
-          type='submit'
-          text='SAVE BLOG'
+          type="submit"
+          text="SAVE BLOG"
         />
-
       </form>
-
     </div>
   );
 };

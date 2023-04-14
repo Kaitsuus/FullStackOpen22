@@ -4,7 +4,7 @@ const Notification = ({ notification }) => {
     background: 'lightgrey',
     fontSize: 20,
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 10
   };
 
   if (notification.message === null) {

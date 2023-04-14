@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { legacy_createStore as createStore } from 'redux'
+import { legacy_createStore as createStore } from 'redux';
 import reducer from './reducer';
 
 const store = createStore(reducer);
@@ -32,8 +32,8 @@ const App = () => {
 
   return (
     <div>
-      <button onClick={good}>good</button> 
-      <button onClick={ok}>ok</button> 
+      <button onClick={good}>good</button>
+      <button onClick={ok}>ok</button>
       <button onClick={bad}>bad</button>
       <button onClick={zero}>reset stats</button>
       <div>good {store.getState().good}</div>
@@ -46,7 +46,7 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const renderApp = () => {
-  root.render(<App />)
+  root.render(<App />);
 };
 
 renderApp();

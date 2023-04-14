@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import anecdoteService from "../services/anecdotes";
+import { createSlice } from '@reduxjs/toolkit';
+import anecdoteService from '../services/anecdotes';
 
 const anecdoteSlice = createSlice({
-  name: "anecdotes",
+  name: 'anecdotes',
   initialState: [],
   reducers: {
     addVote(state, action) {
@@ -17,8 +17,8 @@ const anecdoteSlice = createSlice({
     },
     setAnecdotes(state, action) {
       return action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { addVote, appendAnecdote, setAnecdotes } = anecdoteSlice.actions;

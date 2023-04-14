@@ -16,11 +16,21 @@ const BlogButtons = ({ blog, likeBlog, removeBlog, commentBlog, own }) => {
   return (
     <Box>
       <Box marginTop={1}>
-        <Button variant='contained' size='small' onClick={() => likeBlog(blog.id)}>like this blog</Button>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => likeBlog(blog.id)}
+        >
+          like this blog
+        </Button>
       </Box>
       <Box marginTop={1}>
         {own && (
-          <Button variant='contained' size='small' onClick={() => navigate('/') || removeBlog(blog.id)}>
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => navigate('/') || removeBlog(blog.id)}
+          >
             remove this blog
           </Button>
         )}
@@ -30,7 +40,7 @@ const BlogButtons = ({ blog, likeBlog, removeBlog, commentBlog, own }) => {
         <Box marginTop={1}>
           <TextField
             multiline
-            size='small'
+            size="small"
             value={comment}
             onChange={({ target }) => setComment(target.value)}
             id="comment"
@@ -38,9 +48,14 @@ const BlogButtons = ({ blog, likeBlog, removeBlog, commentBlog, own }) => {
           />
         </Box>
         <Box marginTop={1}>
-        <Button variant='contained' size='small' id="create-comment" type="submit">
-          add comment
-        </Button>
+          <Button
+            variant="contained"
+            size="small"
+            id="create-comment"
+            type="submit"
+          >
+            add comment
+          </Button>
         </Box>
       </Box>
     </Box>

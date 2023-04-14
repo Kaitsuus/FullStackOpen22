@@ -8,7 +8,7 @@ const initialUsers = [
     username: 'root',
     password: 'password'
   }
-]
+];
 
 const testUserCredentials = [
   {
@@ -19,7 +19,7 @@ const testUserCredentials = [
     username: initialUsers[1].username,
     password: initialUsers[1].password
   }
-]
+];
 
 const initialBlogs = [
   {
@@ -34,9 +34,9 @@ const initialBlogs = [
     url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
     likes: 12
   }
-]
+];
 
-const listWithoutBlogs = []
+const listWithoutBlogs = [];
 
 const listWithOneBlog = [
   {
@@ -46,7 +46,7 @@ const listWithOneBlog = [
     likes: 5,
     id: '5a422aa71b54a676234d17f8'
   }
-]
+];
 
 const listWithManyBlogs = [
   {
@@ -91,7 +91,7 @@ const listWithManyBlogs = [
     likes: 2,
     id: '5a422bc61b54a676234d17fc'
   }
-]
+];
 
 module.exports = {
   initialBlogs,
@@ -100,4 +100,4 @@ module.exports = {
   listWithManyBlogs,
   initialUsers,
   testUserCredentials
-}
+};

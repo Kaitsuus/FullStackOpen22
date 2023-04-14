@@ -2,26 +2,31 @@ import { useState } from 'react';
 import { Button } from './FormHelper.js';
 import { BlogDetails } from './BlogDetails';
 
-export const Blog = ({ blog, user, blogs, setBlogs, showSuccessMessage, showErrorMessage }) => {
-
+export const Blog = ({
+  blog,
+  user,
+  blogs,
+  setBlogs,
+  showSuccessMessage,
+  showErrorMessage
+}) => {
   const [detailsShown, setDetailsShown] = useState(false);
   const toggleShowBlogDetails = () => setDetailsShown(!detailsShown);
 
   const renderBlogTitleButton = (
     <Button
-      className='blogTitleButton'
-      type='button'
+      className="blogTitleButton"
+      type="button"
       onClick={toggleShowBlogDetails}
       text={blog.title}
     />
   );
 
   return (
-    <div className='blog'>
-
+    <div className="blog">
       {renderBlogTitleButton}
 
-      {detailsShown &&
+      {detailsShown && (
         <BlogDetails
           key={blog.id}
           blog={blog}
@@ -31,8 +36,7 @@ export const Blog = ({ blog, user, blogs, setBlogs, showSuccessMessage, showErro
           showSuccessMessage={showSuccessMessage}
           showErrorMessage={showErrorMessage}
         />
-      }
-
+      )}
 
       {/* Example of using Togglable component for viewing blog details:
       <Togglable buttonLabel={blog.title} className='blogTitleButton'>
@@ -47,7 +51,6 @@ export const Blog = ({ blog, user, blogs, setBlogs, showSuccessMessage, showErro
         />
       </Togglable>
       */}
-
-    </div >
+    </div>
   );
 };

@@ -1,10 +1,12 @@
-import { Table,
+import {
+  Table,
   TableHead,
   TableBody,
   TableCell,
   TableContainer,
   TableRow,
-  Paper, } from '@mui/material';
+  Paper
+} from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 const User = ({ users }) => {
@@ -30,9 +32,9 @@ const User = ({ users }) => {
           </TableHead>
           <TableBody>
             {user.blogs.map((blog) => (
-               <TableRow key={blog.id}>
-                 <TableCell>{blog.title}</TableCell>
-               </TableRow>
+              <TableRow key={blog.id}>
+                <TableCell>{blog.title}</TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>

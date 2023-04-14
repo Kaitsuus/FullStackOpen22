@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 /*
   const course = 'Half Stack application development'
@@ -11,31 +11,34 @@ import ReactDOM from 'react-dom'
   const exercises3 = 14
 */
 const Header = (props) => {
-  return (
-    <h1>{props.course}</h1>
-  )
-}
+  return <h1>{props.course}</h1>;
+};
 const Part = (props) => {
   return (
     <p>
       {props.part} {props.exercises}
     </p>
-  )
-}
+  );
+};
 const Content = (props) => {
   return (
     <div>
-      <Part part={props.parts[0].name} exercises={props.parts[0].exercises}/>
-      <Part part={props.parts[1].name} exercises={props.parts[1].exercises}/>
-      <Part part={props.parts[2].name} exercises={props.parts[2].exercises}/>
+      <Part part={props.parts[0].name} exercises={props.parts[0].exercises} />
+      <Part part={props.parts[1].name} exercises={props.parts[1].exercises} />
+      <Part part={props.parts[2].name} exercises={props.parts[2].exercises} />
     </div>
-  )
-}
+  );
+};
 const Total = (props) => {
   return (
-    <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-  )
-}
+    <p>
+      Number of exercises{' '}
+      {props.parts[0].exercises +
+        props.parts[1].exercises +
+        props.parts[2].exercises}
+    </p>
+  );
+};
 
 const App = () => {
   const course = {
@@ -54,17 +57,17 @@ const App = () => {
         exercises: 14
       }
     ]
-  }
+  };
 
   return (
     <div>
       <Header course={course.name} />
-      <Content parts={course.parts}/>
+      <Content parts={course.parts} />
       <Total parts={course.parts} />
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'));
 
-export default App
+export default App;

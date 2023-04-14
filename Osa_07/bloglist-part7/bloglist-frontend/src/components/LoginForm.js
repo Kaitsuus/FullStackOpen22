@@ -13,7 +13,7 @@ const LoginForm = ({ onLogin }) => {
   };
 
   const headerStyle = {
-    color: "#2a3eb1"
+    color: '#2a3eb1'
   };
 
   return (
@@ -23,24 +23,24 @@ const LoginForm = ({ onLogin }) => {
       <Box component="form" onSubmit={handleSubmit}>
         <Box marginBottom={1}>
           <TextField
-            size='small'
+            size="small"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
             id="username"
-            placeholder='username'
+            placeholder="username"
           />
         </Box>
         <Box marginBottom={1}>
           <TextField
-            size='small'
+            size="small"
             type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
             id="password"
-            placeholder='password'
+            placeholder="password"
           />
         </Box>
-        <Button id="login-Button" type="submit" variant='contained'>
+        <Button id="login-Button" type="submit" variant="contained">
           login
         </Button>
       </Box>

@@ -1,23 +1,19 @@
-
-import { useState, useEffect } from 'react'
-import Filter from './components/Filter'
-import Form from './components/Form'
-import Person from './components/Person'
-import personService from './services/persons'
-import Notification from './components/Notification'
-
+import { useState, useEffect } from 'react';
+import Filter from './components/Filter';
+import Form from './components/Form';
+import Person from './components/Person';
+import personService from './services/persons';
+import Notification from './components/Notification';
 
 const App = () => {
-  const [persons, setPersons] = useState([])
-  const [newPerson, setNewPerson] = useState(
-    {
-      name: '',
-      number: '',
-    }
-  )
+  const [persons, setPersons] = useState([]);
+  const [newPerson, setNewPerson] = useState({
+    name: '',
+    number: ''
+  });
 
-  const [showPerson, setShowPerson] = useState([])
-  const [filter, setFilter] = useState('')
+  const [showPerson, setShowPerson] = useState([]);
+  const [filter, setFilter] = useState('');
   const [message, setMessage] = useState(null);
 
   /*useEffect(() => {
@@ -38,7 +34,6 @@ const App = () => {
     });
   }, []);
 
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessage(null);
@@ -82,25 +77,25 @@ const App = () => {
           .catch((error) => setMessage(error.response.data.error));
       }
     }
-    setNewPerson({ name: "", number: "" });
+    setNewPerson({ name: '', number: '' });
   };
 
-    const handleNewPerson = (event) => {
+  const handleNewPerson = (event) => {
     //console.log(event.target.value)
-    const {name, value} = event.target
+    const { name, value } = event.target;
     setNewPerson({
       ...newPerson,
       [name]: value
-    })
-  }
+    });
+  };
 
   const filterName = (event) => {
-    const search = event.target.value
-    setFilter(search)
+    const search = event.target.value;
+    setFilter(search);
     setShowPerson(
       persons.filter((person) => person.name.toLowerCase().includes(search))
-    )
-  }
+    );
+  };
   const deletePerson = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
       personService.remove(id).then((response) => {
@@ -112,28 +107,20 @@ const App = () => {
     }
   };
 
-
   return (
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} />
-      <Filter
-      filter={filter}
-      filterName={filterName}
-      />
+      <Filter filter={filter} filterName={filterName} />
       <Form
-      addPerson={addPerson}
-      newPerson={newPerson}
-      handleNewPerson={handleNewPerson}
+        addPerson={addPerson}
+        newPerson={newPerson}
+        handleNewPerson={handleNewPerson}
       />
       <h2>Numbers</h2>
-      <Person
-      showPerson={showPerson}
-      deletePerson={deletePerson}
-      />
+      <Person showPerson={showPerson} deletePerson={deletePerson} />
     </div>
-  )
+  );
+};
 
-}
-
-export default App
+export default App;
