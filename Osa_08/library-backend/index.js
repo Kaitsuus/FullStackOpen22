@@ -101,6 +101,18 @@ const resolvers = {
 
       return book;
     },
+    createUser: async (_root, { username, favouriteGenre }) => {
+      const user = new User({ username, favouriteGenre });
+      return user.save().catch(handleDatabaseError);
+    },
+    login: async (_root, { username, password }) => {
+      const user = await User.findOne({ username });
+
+      if (!user || password !== 'testuserpassword')
+        throw new UserInputError('invalid credentials');
+
+      return { value: jwt.sign({ id: user._id }, process.env.JWT_SECRET) };
+    },
     editAuthor: (_root, { name, setBornTo }) => {
       Author.findOneAndUpdate({ name }, { born: setBornTo }, { new: true })
     },
