@@ -74,7 +74,7 @@ const resolvers = {
       return book;
     },
     editAuthor: (_root, { name, setBornTo }) => {
-
+      Author.findOneAndUpdate({ name }, { born: setBornTo }, { new: true })
     },
   }
 };
