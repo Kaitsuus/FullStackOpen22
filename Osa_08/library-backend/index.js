@@ -36,20 +36,31 @@ const typeDefs = gql`
     author: String!
     genres: [String!]!
   }
+  type User {
+    username: String!
+    favouriteGenre: String!
+    id: ID!
+  }
+  type Token {
+    value: String!
+  }
   type Query {
     authorCount: Int!
     bookCount: Int!
     allAuthors: [Author!]!
     allBooks(author: String, genre: String): [Book!]!
+    me: User
   }
   type Mutation {
+    editAuthor(name: String!, setBornTo: Int!): Author
     addBook(
       title: String!
       published: Int!
       author: String!
       genres: [String!]!
     ): Book
-    editAuthor(name: String!, setBornTo: Int!): Author
+    createUser(username: String!, favouriteGenre: String!): User
+    login(username: String!, password: String!): Token
   }
 `;
 
@@ -80,11 +91,11 @@ const resolvers = {
 
       if (!author) {
         author = new Author({ name });
-        await author.save();
+        await author.save().catch(handleDatabaseError);;
       }
 
       const book = new Book({ author, genres, published, title });
-      await book.save();
+      await book.save().catch(handleDatabaseError);
 
       return book;
     },
