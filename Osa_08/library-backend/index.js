@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql, UserInputError } = require('apollo-server');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const Author = require('./models/author');
@@ -6,6 +6,21 @@ const Book = require('./models/book');
 
 dotenv.config();
 mongoose.connect(process.env.MONGODB_URI);
+
+const handleDatabaseError = (error) => {
+  if (error.name === 'ValidatioError')
+    throw new UserInputError(error.message, {
+      invalidArgs: Object.keys(error.errors).map((key) => error.errors[key].path),
+    });
+  else if (
+    error.name === 'MongoServerError' &&
+    error.code === 11000
+  )
+    throw new UserInputError(error.message, {
+      invalidArgs: Object.keys(error.keyValue),
+    });
+    throw error;
+};
 
 const typeDefs = gql`
   type Author {
