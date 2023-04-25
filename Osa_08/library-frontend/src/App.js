@@ -4,6 +4,7 @@ import Authors from './components/Authors';
 import Books from './components/Books';
 import NewBook from './components/NewBook';
 import Button from '@mui/material/Button';
+import LoginForm from './components/Login';
 import { Box } from '@mui/material';
 
 const App = () => {
@@ -29,10 +30,18 @@ const App = () => {
         <Button variant="contained" size="small" onClick={() => setPage('add')}>
           add book
         </Button>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => setPage('login')}
+        >
+          Login
+        </Button>
       </Box>
       <Authors show={page === 'authors'} />
       <Books show={page === 'books'} />
       <NewBook show={page === 'add'} />
+      {page === 'login' && <LoginForm />}
     </Box>
   );
 };
