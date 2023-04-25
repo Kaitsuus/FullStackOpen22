@@ -1,8 +1,10 @@
 const { ApolloServer, gql, UserInputError } = require('apollo-server');
 const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Author = require('./models/author');
 const Book = require('./models/book');
+const User = require('./models/user');
 
 dotenv.config();
 mongoose.connect(process.env.MONGODB_URI);
@@ -107,7 +109,15 @@ const resolvers = {
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: async ({ req }) => {
+    const auth = req?.headers?.authorization;
+    if (auth && auth.toLowerCase().startsWith('bearer ')) {
+      const { id } = jwt.verify(auth.substring(7), process.env.JWT_SECRET);
+      const authUser = await User.findById(id);
+      return { authUser };
+    }
+  },
 });
 
 server.listen().then(({ url }) => {
