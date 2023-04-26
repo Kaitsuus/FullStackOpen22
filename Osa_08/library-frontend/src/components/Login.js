@@ -1,14 +1,22 @@
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../queries';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
+  const [login] = useMutation(LOGIN, {
+    onCompleted: ({ login: { value: token } }) => onLogin(token)
+  });
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await login({ variables: { username, password } });
 
     setUsername('');
     setPassword('');

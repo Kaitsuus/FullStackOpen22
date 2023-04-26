@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { useApolloClient } from '@apollo/client';
 import Authors from './components/Authors';
 import Books from './components/Books';
 import NewBook from './components/NewBook';
@@ -7,8 +7,27 @@ import Button from '@mui/material/Button';
 import LoginForm from './components/Login';
 import { Box } from '@mui/material';
 
+const AUTH_TOKEN_LOCAL_STORAGE_KEY = 'library-auth-token';
+
 const App = () => {
   const [page, setPage] = useState('authors');
+  const [authToken, setAuthToken] = useState(
+    localStorage.getItem(AUTH_TOKEN_LOCAL_STORAGE_KEY)
+  );
+
+  const client = useApolloClient();
+
+  const handleLogin = (authToken) => {
+    localStorage.setItem(AUTH_TOKEN_LOCAL_STORAGE_KEY, authToken);
+    setAuthToken(authToken);
+    setPage('authors');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem(AUTH_TOKEN_LOCAL_STORAGE_KEY);
+    setAuthToken(null);
+    client.resetStore();
+  };
 
   return (
     <Box>
@@ -27,21 +46,38 @@ const App = () => {
         >
           books
         </Button>
-        <Button variant="contained" size="small" onClick={() => setPage('add')}>
-          add book
-        </Button>
-        <Button
-          variant="contained"
-          size="small"
-          onClick={() => setPage('login')}
-        >
-          Login
-        </Button>
+        {authToken && (
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => setPage('add')}
+          >
+            add book
+          </Button>
+        )}
+        {!authToken && (
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => setPage('login')}
+          >
+            Login
+          </Button>
+        )}
+        {authToken && (
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </Button>
+        )}
       </Box>
-      <Authors show={page === 'authors'} />
+      <Authors show={page === 'authors'} authToken={authToken} />
       <Books show={page === 'books'} />
       <NewBook show={page === 'add'} />
-      {page === 'login' && <LoginForm />}
+      {page === 'login' && <LoginForm onLogin={handleLogin} />}
     </Box>
   );
 };

@@ -12,15 +12,11 @@ import {
 } from '@mui/material';
 
 const Authors = (props) => {
-  const result = useQuery(ALL_AUTHORS);
+  const { data, loading } = useQuery(ALL_AUTHORS);
 
-  if (!props.show) {
-    return null;
-  }
-  if (result.loading) {
-    return <div>loading...</div>;
-  }
-  const authors = result.data.allAuthors || [];
+  if (!props.show || loading) return null;
+
+  const authors = data.allAuthors;
 
   return (
     <div>

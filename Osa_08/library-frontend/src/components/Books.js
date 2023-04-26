@@ -12,15 +12,11 @@ import {
 } from '@mui/material';
 
 const Books = (props) => {
-  const result = useQuery(ALL_BOOKS);
+  const { data, loading } = useQuery(ALL_BOOKS);
 
-  if (!props.show) {
-    return null;
-  }
-  if (result.loading) {
-    return <div>loading...</div>;
-  }
-  const books = result.data.allBooks || [];
+  if (!props.show || loading) return null;
+
+  const books = data.allBooks;
 
   return (
     <div>

@@ -103,6 +103,7 @@ const resolvers = {
     },
     createUser: async (_root, { username, favouriteGenre }) => {
       const user = new User({ username, favouriteGenre });
+      console.log(newUser)
       return user.save().catch(handleDatabaseError);
     },
     login: async (_root, { username, password }) => {
