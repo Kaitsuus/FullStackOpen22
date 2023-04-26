@@ -5,6 +5,7 @@ import Books from './components/Books';
 import NewBook from './components/NewBook';
 import Button from '@mui/material/Button';
 import LoginForm from './components/Login';
+import Recommendations from './components/Recommendations';
 import { Box } from '@mui/material';
 
 const AUTH_TOKEN_LOCAL_STORAGE_KEY = 'library-auth-token';
@@ -50,12 +51,21 @@ const App = () => {
           <Button
             variant="contained"
             size="small"
+            onClick={() => setPage('recommendations')}
+          >
+            recommendations
+          </Button>
+        )}
+        {authToken && 
+          <Button
+            variant="contained"
+            size="small"
             onClick={() => setPage('add')}
           >
             add book
           </Button>
-        )}
-        {!authToken && (
+        }
+        {!authToken && 
           <Button
             variant="contained"
             size="small"
@@ -63,8 +73,8 @@ const App = () => {
           >
             Login
           </Button>
-        )}
-        {authToken && (
+        }
+        {authToken && 
           <Button
             variant="contained"
             size="small"
@@ -72,10 +82,11 @@ const App = () => {
           >
             Logout
           </Button>
-        )}
+        }
       </Box>
       <Authors show={page === 'authors'} authToken={authToken} />
       <Books show={page === 'books'} />
+      <Recommendations show={page === 'recommendations'} />
       <NewBook show={page === 'add'} />
       {page === 'login' && <LoginForm onLogin={handleLogin} />}
     </Box>
