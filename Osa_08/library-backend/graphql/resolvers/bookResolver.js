@@ -25,6 +25,9 @@ module.exports = {
       const book = new Book({ author, genres, published, title });
       await book.save().catch(handleDatabaseError);
 
+      author.books.push(book);
+      await author.save();
+
       pubsub.publish(BOOK_ADDED_TOPIC, { bookAdded: book });
 
       return book;

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { ALL_BOOKS, GET_ME } from '../queries';
+import { ALL_BOOKS, GET_ME } from '../graphql/queries';
 import BooksTable from './BooksTable';
 
 const Recommendations = (props) => {

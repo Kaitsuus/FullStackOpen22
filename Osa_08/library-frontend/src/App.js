@@ -5,7 +5,7 @@ import Books from './components/Books';
 import NewBook from './components/NewBook';
 import Button from '@mui/material/Button';
 import LoginForm from './components/Login';
-
+import Recommendations from './components/Recommendations';
 import { Box } from '@mui/material';
 
 const AUTH_TOKEN_LOCAL_STORAGE_KEY = 'library-auth-token';

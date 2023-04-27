@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { ALL_BOOKS } from '../queries';
+import { ALL_BOOKS } from '../graphql/queries';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ALL_AUTHORS, ALL_BOOKS, ADD_BOOK } from '../queries';
+import { ALL_AUTHORS, ALL_BOOKS } from '../graphql/queries';
+import { ADD_BOOK } from '../graphql/mutations';
+import { addOrUpdateCachedQueryArrayItem } from '../graphql/utils';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -11,25 +13,35 @@ const NewBook = (props) => {
   const [published, setPublished] = useState('');
   const [genre, setGenre] = useState('');
   const [genres, setGenres] = useState([]);
+
   const [addBook] = useMutation(ADD_BOOK);
 
-  if (!props.show) {
-    return null;
-  }
+  if (!props.show) return null;
 
   const submit = async (event) => {
     event.preventDefault();
 
     addBook({
       variables: { author, genres, published: +published, title },
-      refetchQueries: [
-        { query: ALL_AUTHORS },
-        { query: ALL_BOOKS },
-        ...genres.map((g) => ({
-          query: ALL_BOOKS,
-          variables: { genre: g },
-        })),
-      ],
+
+      update: (cache, { data: { addBook: book } }) => {
+        addOrUpdateCachedQueryArrayItem(
+          cache,
+          { query: ALL_AUTHORS },
+          book.author
+        );
+
+        [{ query: ALL_BOOKS }]
+          .concat(
+            genres.map((g) => ({
+              query: ALL_BOOKS,
+              variables: { genre: g },
+            }))
+          )
+          .forEach((query) =>
+            addOrUpdateCachedQueryArrayItem(cache, query, book)
+          );
+      },
     });
 
     setTitle('');

@@ -1,8 +1,11 @@
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
-import { ALL_BOOKS } from '../queries';
+import { ALL_BOOKS } from '../graphql/queries';
+import { useBookAddedSubscription } from '../hooks';
 import GenreButtons from './Genre';
 import BooksTable from './BooksTable';
+
+import { Box } from '@mui/material';
 
 const Books = (props) => {
   const [genre, setGenre] = useState('');
@@ -13,21 +16,20 @@ const Books = (props) => {
     },
   });
 
+  useBookAddedSubscription();
+
   if (!props.show) return null;
 
   const books = data?.allBooks || [];
 
+
   return (
-    <div>
+    <Box>
       <h2>books</h2>
-      {genre && (
-        <p>
-          in genre <b>{genre}</b>
-        </p>
-      )}
-      <BooksTable books={books} loading={loading} />
-      <GenreButtons genre={genre} setGenre={setGenre} />
-    </div>
+      {genre && (<p>genre: {genre}</p>)}
+    <BooksTable books={books} loading={loading} />
+    <GenreButtons genre={genre} setGenre={setGenre} />
+    </Box>
   );
 };
 

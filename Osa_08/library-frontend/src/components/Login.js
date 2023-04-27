@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../queries';
+import { LOGIN } from '../graphql/mutations';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';

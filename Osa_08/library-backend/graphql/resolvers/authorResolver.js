@@ -1,6 +1,5 @@
 const { AuthenticationError } = require('apollo-server-core');
 const Author = require('../../models/author');
-const Book = require('../../models/book');
 
 module.exports = {
   Mutation: {
@@ -19,6 +18,6 @@ module.exports = {
     allAuthors: async () => Author.find({}),
   },
   Author: {
-    bookCount: async (parent) => Book.countDocuments({ author: parent }),
+    bookCount: async ({ books }) => books.length,
   },
 };
